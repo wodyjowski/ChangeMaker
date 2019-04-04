@@ -5,15 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ChangeMaker"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" MinWidth="800" MinHeight="450">
     <Grid>
-        <RichTextBox Height="20" Margin="10,10,10,0" VerticalAlignment="Top">
-            <FlowDocument Language="pl-pl">
-                <Paragraph>
-                    <Run Text="RichTextBox"/>
-                </Paragraph>
-            </FlowDocument>
+        <RichTextBox Height="20" Margin="10,41,10,0" VerticalAlignment="Top">
+            <FlowDocument Language="pl-pl"/>
         </RichTextBox>
+        <Button Content="Solve" Margin="0,70,10,0" HorizontalAlignment="Right" Width="75" Height="20" VerticalAlignment="Top"/>
+        <RichTextBox Margin="10,123,10,10">
+            <FlowDocument/>
+        </RichTextBox>
+        <Label Content="Output:" HorizontalAlignment="Left" Margin="10,92,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.472,0.043" Width="73"/>
+        <Label Content="Desired amount:" HorizontalAlignment="Left" Margin="10,68,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.472,0.043" Width="100"/>
+        <Label Content="Avalible coins:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.472,0.043" Width="100"/>
+        <TextBox Height="20" Margin="115,71,105,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>
