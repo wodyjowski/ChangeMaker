@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ChangeMaker.Logic;
+using ChangeMaker.Logic.Base;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -34,7 +36,19 @@ namespace ChangeMaker
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            richTextOutput.AppendText(viewModel.Amount);
+            richTextOutput.Document.Blocks.Clear();
+
+            Algorithm algorithm = new GreedyAlgorithm(new List<int> { 2, 4, 5 });
+            var result = algorithm.CalculateResult(int.Parse(viewModel.Amount));
+            if(result != null)
+            {
+                richTextOutput.AppendText(string.Join("-", result));
+            }
+            else
+            {
+                richTextOutput.AppendText("Cannot solve.");
+            }
+
         }
 
         private void TextBoxAmount_PreviewTextInput(object sender, TextCompositionEventArgs e)
