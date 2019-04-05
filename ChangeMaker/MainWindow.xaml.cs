@@ -38,7 +38,12 @@ namespace ChangeMaker
         {
             richTextOutput.Document.Blocks.Clear();
 
-            Algorithm algorithm = new GreedyAlgorithm(new List<int> { 2, 4, 5 });
+            var text = new TextRange(richTextBoxInput.Document.ContentStart, richTextBoxInput.Document.ContentEnd).Text;
+            var digitsTxt = text.Split(' ');
+            var digits = digitsTxt.Select(d => int.Parse(d));
+
+
+            Algorithm algorithm = new GreedyAlgorithm(digits);
             var result = algorithm.CalculateResult(int.Parse(viewModel.Amount));
             if(result != null)
             {

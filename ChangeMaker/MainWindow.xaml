@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" MinWidth="800" MinHeight="450">
     <Grid>
-        <RichTextBox Height="20" Margin="10,41,10,0" VerticalAlignment="Top" TextChanged="RichTextBox_TextChanged" AcceptsReturn="False">
+        <RichTextBox x:Name="richTextBoxInput" Height="20" Margin="10,41,10,0" VerticalAlignment="Top" TextChanged="RichTextBox_TextChanged" AcceptsReturn="False">
             <FlowDocument Language="pl-pl"/>
         </RichTextBox>
         <Button Content="Solve" Margin="0,70,10,0" HorizontalAlignment="Right" Width="75" Height="20" VerticalAlignment="Top" Click="Button_Click"/>
