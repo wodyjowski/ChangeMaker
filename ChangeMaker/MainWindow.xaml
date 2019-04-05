@@ -8,17 +8,20 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" MinWidth="800" MinHeight="450">
     <Grid>
-        <RichTextBox x:Name="richTextBoxInput" Height="20" Margin="10,41,10,0" VerticalAlignment="Top" TextChanged="RichTextBox_TextChanged" AcceptsReturn="False">
+        <RichTextBox x:Name="richTextBoxInput" Height="20" Margin="10,41,132,0" VerticalAlignment="Top" TextChanged="RichTextBox_TextChanged" AcceptsReturn="False">
             <FlowDocument Language="pl-pl"/>
         </RichTextBox>
-        <Button Content="Solve" Margin="0,70,10,0" HorizontalAlignment="Right" Width="75" Height="20" VerticalAlignment="Top" Click="Button_Click"/>
-        <RichTextBox x:Name="richTextOutput" Margin="10,123,10,10">
+        <Button x:Name="buttonCompute" Content="Solve" Margin="0,70,132,0" HorizontalAlignment="Right" Width="63" Height="20" VerticalAlignment="Top" Click="ButtonCompute_Click"/>
+        <RichTextBox x:Name="richTextOutput" Margin="10,123,10,10" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
             <FlowDocument/>
         </RichTextBox>
         <Label Content="Output:" HorizontalAlignment="Left" Margin="10,92,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.472,0.043" Width="73"/>
         <Label Content="Desired amount:" HorizontalAlignment="Left" Margin="10,68,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.472,0.043" Width="100"/>
         <Label Content="Avalible coins:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.472,0.043" Width="100"/>
-        <TextBox x:Name="textBoxAmount" Height="20" Margin="115,71,105,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="{Binding Path=Amount}" PreviewTextInput="TextBoxAmount_PreviewTextInput"/>
+        <TextBox x:Name="textBoxAmount" Height="20" Margin="110,70,200,0" TextWrapping="Wrap" VerticalAlignment="Top" Text="{Binding Path=Amount}" PreviewTextInput="TextBoxAmount_PreviewTextInput"/>
+        <CheckBox x:Name="checkBoxTime" Content="Execution time&#xD;&#xA;" HorizontalAlignment="Left" Margin="675,81,0,0" VerticalAlignment="Top" Width="107" Height="14" IsChecked="{Binding Time}"/>
+        <RadioButton x:Name="radioButtonGreedy" Content="Greedy" HorizontalAlignment="Left" Margin="675,41,0,0" VerticalAlignment="Top"/>
+        <RadioButton x:Name="radioButtonDynamic" Content="Dynamic" HorizontalAlignment="Left" Margin="675,61,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

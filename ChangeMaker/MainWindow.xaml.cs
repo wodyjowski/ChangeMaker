@@ -28,13 +28,16 @@ namespace ChangeMaker
         {
             InitializeComponent();
             textBoxAmount.DataContext = viewModel;
+            radioButtonDynamic.DataContext = viewModel;
+            radioButtonGreedy.DataContext = viewModel;
+            checkBoxTime.DataContext = viewModel;
         }
 
         private void RichTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void ButtonCompute_Click(object sender, RoutedEventArgs e)
         {
             richTextOutput.Document.Blocks.Clear();
 
@@ -60,5 +63,6 @@ namespace ChangeMaker
         {
             e.Handled = !Regex.IsMatch(e.Text, @"\d");
         }
+
     }
 }
