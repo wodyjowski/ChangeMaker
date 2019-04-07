@@ -13,7 +13,7 @@ namespace ChangeMaker.Logic
         {
         }
 
-        public override IEnumerable<int> CalculateResult(int amount)
+        public override IEnumerable<int> CalculateResult(float amount)
         {
             throw new NotImplementedException();
         }

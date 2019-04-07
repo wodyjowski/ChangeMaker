@@ -7,12 +7,31 @@ using System.Threading.Tasks;
 
 namespace ChangeMaker
 {
-    class ViewModel
+    class ViewModel : INotifyPropertyChanged
     {
+
         public string CoinString { get; set; }
         public string Amount { get; set; }
-        public bool Greedy { get; set; }
+        public bool Greedy { get; set; } = true;
         public bool Dynamic { get; set; }
-        public bool Time { get; set; }
+        public bool Time { get; set; } = true;
+
+        //Execution time variables
+        private string _ExeTimeGreedy;
+        public string ExeTimeGreedy
+        {
+            get => _ExeTimeGreedy;
+            set
+            {
+                _ExeTimeGreedy = value;
+                PropertyChanged(this, new PropertyChangedEventArgs(nameof(ExeTimeGreedy)));
+            }
+        }
+        public string ExeTimeDynamic { get; set; }
+
+
+
+
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

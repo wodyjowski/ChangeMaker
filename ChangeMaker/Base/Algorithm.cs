@@ -13,6 +13,6 @@ namespace ChangeMaker.Logic.Base
         {
             this.coins = coins.OrderByDescending(c => c) ?? throw new ArgumentNullException();
         }
-        public abstract IEnumerable<int> CalculateResult(int amount);
+        public abstract IEnumerable<int> CalculateResult(float amount);
     }
 }
