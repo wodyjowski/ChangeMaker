@@ -55,9 +55,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Base\Algorithm.cs" />
-    <Compile Include="Logic\DynamicAlgorithm.cs" />
-    <Compile Include="Logic\GreedyAlgorithm.cs" />
+    <Compile Include="Algorithms\Base\Algorithm.cs" />
+    <Compile Include="Algorithms\DynamicAlgorithm.cs" />
+    <Compile Include="Algorithms\GreedyAlgorithm.cs" />
+    <Compile Include="Helpers\CoinParser.cs" />
     <Compile Include="Models\ViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -98,5 +99,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,4 +1,5 @@
-﻿using ChangeMaker.Logic;
+﻿using ChangeMaker.Helpers;
+using ChangeMaker.Logic;
 using ChangeMaker.Logic.Base;
 using System;
 using System.Collections.Generic;
@@ -41,9 +42,7 @@ namespace ChangeMaker
             viewModel.ExeTimeGreedy = string.Empty;
 
             var text = new TextRange(richTextBoxInput.Document.ContentStart, richTextBoxInput.Document.ContentEnd).Text;
-            var digitsTxt = text.Split(' ');
-            var digits = digitsTxt.Select(d => int.Parse(d));
-
+            var digits = text.ParseCoins();
 
             Algorithm algorithm = new GreedyAlgorithm(digits);
 
