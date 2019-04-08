@@ -35,24 +35,34 @@ namespace ChangeMaker
 
         private void RichTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
+            var text = new TextRange(richTextBoxInput.Document.ContentStart, richTextBoxInput.Document.ContentEnd);
+            if(text.Text.Length > 5)
+            {
+                var text1 = new TextRange(richTextBoxInput.Document.ContentStart.GetNextContextPosition(LogicalDirection.Forward), richTextBoxInput.Document.ContentEnd);
+                text1.ApplyPropertyValue(TextElement.ForegroundProperty, Brushes.Red);
+            }
         }
+
 
         private void ButtonCompute_Click(object sender, RoutedEventArgs e)
         {
+            ClearOutput();
+
             viewModel.ExeTimeGreedy = string.Empty;
 
             var text = new TextRange(richTextBoxInput.Document.ContentStart, richTextBoxInput.Document.ContentEnd).Text;
             var digits = text.ParseCoins();
 
+            var valueToCalculate = viewModel.Amount.ParseSingeValue();
+
+            if (valueToCalculate == null) return;
+
+
             Algorithm algorithm = new GreedyAlgorithm(digits);
-
-
             var watch = System.Diagnostics.Stopwatch.StartNew();
-            var result = algorithm.CalculateResult(float.Parse(viewModel.Amount));
+            var result = algorithm.CalculateResult((float)valueToCalculate);
             watch.Stop();
-            var elapsedMs = watch.ElapsedMilliseconds;
-
-            viewModel.ExeTimeGreedy = $"{elapsedMs.ToString()}ms";
+            viewModel.ExeTimeGreedy = watch.Elapsed.TotalMilliseconds.ToString();
 
             listGreedy.Items.Clear();
             if (result != null)
@@ -71,6 +81,14 @@ namespace ChangeMaker
                 item.Content = "Cannot solve";
                 listGreedy.Items.Add(item);
             }
+        }
+
+        private void ClearOutput()
+        {
+            listGreedy.Items.Clear();
+            listDynamic.Items.Clear();
+            viewModel.ExeTimeGreedy = string.Empty;
+            viewModel.ExeTimeDynamic = string.Empty;
         }
 
         private void TextBoxAmount_PreviewTextInput(object sender, TextCompositionEventArgs e)

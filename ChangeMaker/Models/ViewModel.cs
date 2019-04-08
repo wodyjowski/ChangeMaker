@@ -16,7 +16,8 @@ namespace ChangeMaker
         public bool Dynamic { get; set; }
         public bool Time { get; set; } = true;
 
-        //Execution time variables
+        #region Execution time variables
+
         private string _ExeTimeGreedy;
         public string ExeTimeGreedy
         {
@@ -27,8 +28,19 @@ namespace ChangeMaker
                 PropertyChanged(this, new PropertyChangedEventArgs(nameof(ExeTimeGreedy)));
             }
         }
-        public string ExeTimeDynamic { get; set; }
 
+        private string _ExeTimeDynamic;
+        public string ExeTimeDynamic
+        {
+            get => _ExeTimeDynamic;
+            set
+            {
+                _ExeTimeDynamic = value;
+                PropertyChanged(this, new PropertyChangedEventArgs(nameof(ExeTimeDynamic)));
+            }
+        }
+
+        #endregion
 
 
 
