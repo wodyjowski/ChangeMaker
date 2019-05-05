@@ -4,6 +4,8 @@ using ChangeMaker.Logic.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -33,45 +35,79 @@ namespace ChangeMaker
             DataContext = viewModel;
         }
 
-        private void RichTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            var text = new TextRange(richTextBoxInput.Document.ContentStart, richTextBoxInput.Document.ContentEnd);
-            if(text.Text.Length > 5)
-            {
-                var text1 = new TextRange(richTextBoxInput.Document.ContentStart.GetNextContextPosition(LogicalDirection.Forward), richTextBoxInput.Document.ContentEnd);
-                text1.ApplyPropertyValue(TextElement.ForegroundProperty, Brushes.Red);
-            }
-        }
-
-
         private void ButtonCompute_Click(object sender, RoutedEventArgs e)
         {
             ClearOutput();
 
             viewModel.ExeTimeGreedy = string.Empty;
 
-            var text = new TextRange(richTextBoxInput.Document.ContentStart, richTextBoxInput.Document.ContentEnd).Text;
-            var digits = text.ParseCoins();
+            var digits = viewModel.CoinString.ParseCoins();
 
             var valueToCalculate = viewModel.Amount.ParseSingeValue();
 
             if (valueToCalculate == null) return;
 
+            if (viewModel.Greedy)
+            {
+                ComputeGreedy(digits, (float)valueToCalculate);
+            }
 
-            Algorithm algorithm = new GreedyAlgorithm(digits);
+            if (viewModel.Dynamic)
+            {
+                ComputeDynamic(digits, (float)valueToCalculate);
+            }
+
+        }
+
+        private async void ComputeDynamic(IEnumerable<int> digits, float valueToCalculate)
+        {
+            DynamicAlgorithm algorithm = new DynamicAlgorithm(digits);
             var watch = System.Diagnostics.Stopwatch.StartNew();
-            var result = algorithm.CalculateResult((float)valueToCalculate);
+            var result = await Task.Run(() =>
+            {
+                return algorithm.CalculateResult(valueToCalculate);
+            });
             watch.Stop();
-            viewModel.ExeTimeGreedy = watch.Elapsed.TotalMilliseconds.ToString();
+
+            if (viewModel.Time) viewModel.ExeTimeDynamic = $"{watch.Elapsed.TotalMilliseconds.ToString()}ms";
+
+            listDynamic.Items.Clear();
+            if (result != null)
+            {
+                foreach (var r in result)
+                {
+                    var item = new ListBoxItem();
+                    item.Content = $"{r.Value} x {r.Key}";
+                    listDynamic.Items.Add(item);
+                }
+            }
+            else
+            {
+                var item = new ListBoxItem();
+                item.Content = "Cannot solve";
+                listDynamic.Items.Add(item);
+            }
+        }
+
+        private async void ComputeGreedy(IEnumerable<int> digits, float valueToCalculate)
+        {
+            GreedyAlgorithm algorithm = new GreedyAlgorithm(digits);
+            var watch = System.Diagnostics.Stopwatch.StartNew();
+            var result = await Task.Run(() =>
+            {
+                return algorithm.CalculateResult(valueToCalculate);
+            });
+            watch.Stop();
+
+            if (viewModel.Time) viewModel.ExeTimeGreedy = $"{watch.Elapsed.TotalMilliseconds.ToString()}ms";
 
             listGreedy.Items.Clear();
             if (result != null)
             {
-                var grResult = result.GroupBy(l => l).Select(g => new { coin = g.Key, count = g.Count() });
-                foreach (var r in grResult)
+                foreach (var r in result)
                 {
                     var item = new ListBoxItem();
-                    item.Content = $"{r.count} x {r.coin}";
+                    item.Content = $"{r.Value} x {r.Key}";
                     listGreedy.Items.Add(item);
                 }
             }
@@ -82,6 +118,8 @@ namespace ChangeMaker
                 listGreedy.Items.Add(item);
             }
         }
+
+
 
         private void ClearOutput()
         {
@@ -94,6 +132,11 @@ namespace ChangeMaker
         private void TextBoxAmount_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = !Regex.IsMatch(e.Text, @"\d");
+        }
+
+        private void TextBoxCoin_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !Regex.IsMatch(e.Text, @"\d+");
         }
     }
 }

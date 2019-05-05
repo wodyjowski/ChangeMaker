@@ -33,7 +33,7 @@ namespace ChangeMaker.Helpers
                 }
             }
 
-            return result;
+            return result.Where(d => d != 0);
         }
 
         /// <summary>

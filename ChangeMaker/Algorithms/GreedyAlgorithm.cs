@@ -9,37 +9,42 @@ namespace ChangeMaker.Logic
 {
     class GreedyAlgorithm : Algorithm
     {
+        private int numOfCoins;
+        private int[] coinArray;
+
         public GreedyAlgorithm(IEnumerable<int> coins) : base(coins)
         {
+            numOfCoins = coins.Count();
+            coinArray = coins.ToArray();
         }
 
-        public override IEnumerable<int> CalculateResult(float amount)
+        public Dictionary<int, int> CalculateResult(float amount)
         {
-            List<int> resultList = new List<int>();
+            Dictionary<int, int> result = new Dictionary<int, int>();
 
-            int i = 0;
-            while (amount > 0)
+            int n = numOfCoins - 1;
+
+            while (n >= 0)
             {
-                if (i >= coins.Count())
+                if(amount < coinArray[n])
                 {
-                    resultList = null;
-                    break;
-                }
-
-                var maxCoin = coins.ElementAt(i);
-
-                if (amount >= maxCoin)
-                {
-                    resultList.Add(maxCoin);
-                    amount -= maxCoin;
+                    --n;
                 }
                 else
                 {
-                    ++i;
+                    amount -= coinArray[n];
+                    if(result.ContainsKey(coinArray[n]))
+                    {
+                        result[coinArray[n]]++;
+                    }
+                    else
+                    {
+                        result[coinArray[n]] = 1;
+                    }
                 }
             }
 
-            return resultList;
+            return result;
         }
     }
 }

@@ -13,7 +13,7 @@ namespace ChangeMaker
         public string CoinString { get; set; }
         public string Amount { get; set; }
         public bool Greedy { get; set; } = true;
-        public bool Dynamic { get; set; }
+        public bool Dynamic { get; set; } = true;
         public bool Time { get; set; } = true;
 
         #region Execution time variables

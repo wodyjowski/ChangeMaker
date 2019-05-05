@@ -11,8 +11,7 @@ namespace ChangeMaker.Logic.Base
         protected IEnumerable<int> coins;
         public Algorithm(IEnumerable<int> coins)
         {
-            this.coins = coins.OrderByDescending(c => c) ?? throw new ArgumentNullException();
+            this.coins = coins.OrderBy(c => c) ?? throw new ArgumentNullException();
         }
-        public abstract IEnumerable<int> CalculateResult(float amount);
     }
 }
