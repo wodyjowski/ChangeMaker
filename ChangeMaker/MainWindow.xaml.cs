@@ -3,6 +3,7 @@ using ChangeMaker.Logic;
 using ChangeMaker.Logic.Base;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -80,6 +81,17 @@ namespace ChangeMaker
                     item.Content = $"{r.Value} x {r.Key}";
                     listDynamic.Items.Add(item);
                 }
+
+                DynamicAlgorithm greedyAlg = (DynamicAlgorithm) algorithm;
+
+
+                Debug.WriteLine($"Arrays for input: {valueToCalculate}");
+                Debug.WriteLine("----------------------------------");
+                for (int i = 1; i < greedyAlg.oArray.Length; i++)
+                {
+                    Debug.WriteLine($"amount: {i} -> o:{greedyAlg.oArray[i]}   s:{greedyAlg.sArray[i]}  ({greedyAlg.coinArray[greedyAlg.sArray[i]]})");
+                }
+
             }
             else
             {

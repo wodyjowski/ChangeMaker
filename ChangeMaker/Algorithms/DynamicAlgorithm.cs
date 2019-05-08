@@ -10,7 +10,11 @@ namespace ChangeMaker.Logic
     class DynamicAlgorithm : Algorithm
     {
         private int numOfCoins;
-        private int[] coinArray;
+        public int[] coinArray { get; private set; }
+
+        public int[] oArray { get; private set; }
+        public int[] sArray { get; private set; }
+
         public DynamicAlgorithm(IEnumerable<int> coins) : base(coins)
         {
             numOfCoins = coins.Count();
@@ -63,6 +67,9 @@ namespace ChangeMaker.Logic
                 }
             }
 
+
+            oArray = o;
+            sArray = s;
 
             return result;
         }
